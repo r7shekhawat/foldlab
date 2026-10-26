@@ -28,6 +28,8 @@ jobs:
           cp -r web core _site/
           cp site/index.html site/landing.css site/landing.js _site/
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
