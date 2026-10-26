@@ -34,9 +34,22 @@
     return { orientation: h.orientation, offset: round(offset), length: round(length) };
   }
 
+  /**
+   * Layout hinge for CSS / page state. Physical hinge wins; otherwise a seamless
+   * crease becomes a zero-length hinge so fold-aware demos can split into two panes
+   * while flat. CDP emulation keeps using resolveHinge (physical only).
+   */
+  function resolveLayoutHinge(mode) {
+    var h = resolveHinge(mode);
+    if (h) return h;
+    if (!mode || !mode.crease) return null;
+    var axis = mode.crease === 'vertical' ? mode.width : mode.height;
+    return { orientation: mode.crease, offset: round(axis / 2), length: 0 };
+  }
+
   /** Hinge rectangle in CSS px relative to the screen's top-left corner. */
   function hingeRect(mode) {
-    var h = resolveHinge(mode);
+    var h = resolveLayoutHinge(mode);
     if (!h) return null;
     return h.orientation === 'vertical'
       ? { x: h.offset, y: 0, width: h.length, height: mode.height }
@@ -45,7 +58,7 @@
 
   /** Usable regions on each side of the hinge (what visualViewport.segments reports). */
   function computeSegments(mode) {
-    var h = resolveHinge(mode);
+    var h = resolveLayoutHinge(mode);
     if (!h) return [{ x: 0, y: 0, width: mode.width, height: mode.height }];
     if (h.orientation === 'vertical') {
       return [
@@ -107,7 +120,7 @@
    * Everything is in CSS pixels.
    */
   function toPageState(device, mode) {
-    var h = resolveHinge(mode);
+    var h = resolveLayoutHinge(mode);
     return {
       simulated: true,
       device: device ? device.name : null,
@@ -235,6 +248,7 @@
 
   return {
     resolveHinge: resolveHinge,
+    resolveLayoutHinge: resolveLayoutHinge,
     hingeRect: hingeRect,
     computeSegments: computeSegments,
     rotate: rotate,

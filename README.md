@@ -2,8 +2,7 @@
 
 **DevTools for foldables.** Load your site, then fold, unfold, rotate and half-fold it on a Galaxy Z Fold, Pixel Fold, Surface Duo, iPhone Duo, flips and rollables, with a real hinge, viewport segments and device posture.
 
-<!-- Add a 5-second GIF of a device unfolding and the demo page reflowing: docs/demo.gif -->
-<!-- ![FoldLab unfolding a Galaxy Z Fold](docs/demo.gif) -->
+![FoldLab unfolding a Galaxy Z Fold](docs/demo.gif)
 
 Most apps and sites still treat a foldable like a big phone. The text runs straight through the hinge, the layout never reacts to half-folded posture, and nobody notices until a user on a $1,800 device does. Chrome DevTools has a handful of foldable presets, but no live fold/unfold, no hinge you can see, and no way to compare devices side by side. FoldLab fills that gap.
 
@@ -91,7 +90,7 @@ visualViewport.segments;             // DOMRect-like segments, or null
 
 Each device has a cover/closed state, an unfolded state, and (where it exists) a half-folded flex or tabletop state.
 
-**How hinges are modelled.** Seamless folds (Fold, Flip, Razr, Pixel Fold, iPhone Duo) only report a hinge when half-folded, the same way Android's WindowManager reports a `FoldingFeature`. Flat modes show a faint crease for context but the page sees one segment. Devices that physically hide pixels (Surface Duo) report a hinge gap while spanned.
+**How hinges are modelled.** Seamless folds (Fold, Flip, Razr, Pixel Fold, iPhone Duo) only get a physical hinge (and Chrome `displayFeature`) when half-folded, the same way Android's WindowManager reports a `FoldingFeature`. Flat modes still show a faint crease; in the playground that crease is exposed as a zero-width layout hinge so CSS can teach a two-pane fold-aware layout. Devices that physically hide pixels (Surface Duo) report a real hinge gap while spanned.
 
 **Accuracy.** Panel pixel counts come from manufacturer spec sheets; CSS px are panel px divided by the device pixel ratio. Entries marked `approximate` use an estimated ratio or hinge size (for example, the iPhone Duo's logical size assumes 3x because Apple has not published it). Corrections are the most useful kind of pull request.
 
