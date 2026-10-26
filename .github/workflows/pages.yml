@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r web core _site/
-          echo '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=web/"><a href="web/">FoldLab</a>' > _site/index.html
+          cp site/index.html site/landing.css site/landing.js _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

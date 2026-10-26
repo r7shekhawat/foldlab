@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FoldLab — DevTools for foldables</title>
+<meta name="description" content="Test your site on Galaxy Z Fold, Pixel Fold, Surface Duo, flips and rollables. Fold, unfold and half-fold with a real hinge. Open source.">
+<meta property="og:title" content="FoldLab — DevTools for foldables">
+<meta property="og:description" content="Paste a URL. Press Unfold. See how your site behaves on every foldable.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='5' width='11' height='22' rx='3' fill='%2318212f'/%3E%3Crect x='18' y='5' width='11' height='22' rx='3' fill='%2318212f'/%3E%3Crect x='15' y='5' width='2' height='22' fill='%23ff5a1f'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="./">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="11" height="22" rx="3" fill="currentColor"/><rect x="18" y="5" width="11" height="22" rx="3" fill="currentColor"/><rect x="15" y="5" width="2" height="22" fill="#ff5a1f"/></svg>
+    FoldLab
+  </a>
+  <nav>
+    <a href="web/">Playground</a>
+    <a href="https://github.com/r7shekhawat/foldlab">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">DevTools for foldables</p>
+    <h1>See the fold before your users do.</h1>
+    <p class="lead">Load any page, then fold, unfold, rotate and half-fold it on Galaxy Z Fold, Pixel Fold, Surface Duo, flips and rollables — with a real hinge, viewport segments and device posture.</p>
+    <div class="cta">
+      <a class="btn primary" href="web/">Open playground</a>
+      <a class="btn" href="https://github.com/r7shekhawat/foldlab">View on GitHub</a>
+    </div>
+  </section>
+
+  <section class="strip" aria-label="Highlights">
+    <div>
+      <strong>Web playground</strong>
+      <span>Paste a URL. Press Unfold. Shareable links.</span>
+    </div>
+    <div>
+      <strong>Chrome extension</strong>
+      <span>Real hinge + posture emulation on any site.</span>
+    </div>
+    <div>
+      <strong>Open source</strong>
+      <span>MIT. Device profiles are one JSON file.</span>
+    </div>
+  </section>
+
+  <section class="devices">
+    <h2>Devices included</h2>
+    <ul>
+      <li>Galaxy Z Fold 7 / 6</li>
+      <li>Pixel 10 Pro Fold / Pixel Fold</li>
+      <li>Galaxy Z Flip 7 / 6</li>
+      <li>Razr+ 2024</li>
+      <li>Surface Duo / Duo 2</li>
+      <li>iPhone Duo</li>
+      <li>Rollable concept</li>
+    </ul>
+  </section>
+
+  <section class="waitlist" id="waitlist">
+    <h2>Get launch updates</h2>
+    <p>Chrome Web Store, Pro features, and Product Hunt day. No spam — just the useful stuff.</p>
+    <!-- Set FORMSPREE_ID in landing.js after creating a free form at formspree.io -->
+    <form id="waitlistForm" novalidate>
+      <label class="sr" for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com">
+      <button type="submit" class="btn primary">Join waitlist</button>
+    </form>
+    <p class="form-note" id="formNote" hidden></p>
+  </section>
+</main>
+
+<footer>
+  <span>MIT · Built for the foldable web</span>
+  <a href="https://github.com/r7shekhawat/foldlab">r7shekhawat/foldlab</a>
+</footer>
+
+<script src="landing.js"></script>
+</body>
+</html>

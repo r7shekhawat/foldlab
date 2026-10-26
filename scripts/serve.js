@@ -141,11 +141,15 @@ const server = http.createServer((req, res) => {
     return handleProxy(req, res, pageUrl);
   }
 
-  if (urlPath === '/') {
-    res.writeHead(302, { Location: '/web/' });
-    return res.end();
-  }
-  let file = path.join(ROOT, urlPath);
+  const siteMap = {
+    '/': 'site/index.html',
+    '/index.html': 'site/index.html',
+    '/landing.css': 'site/landing.css',
+    '/landing.js': 'site/landing.js'
+  };
+  let file = siteMap[urlPath]
+    ? path.join(ROOT, siteMap[urlPath])
+    : path.join(ROOT, urlPath);
   if (file !== ROOT && !file.startsWith(ROOT + path.sep)) {
     res.writeHead(403);
     return res.end('Forbidden');

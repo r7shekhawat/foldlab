@@ -1,0 +1,176 @@
+:root {
+  --ink: #18212f;
+  --muted: #5f6c7e;
+  --fog: #f4f6f8;
+  --paper: #ffffff;
+  --line: #d3dae3;
+  --hinge: #ff5a1f;
+  --focus: #1f5eff;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font: 16px/1.5 "Avenir Next", "Segoe UI Variable", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+a { color: inherit; }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 18px 24px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav nav { display: flex; gap: 18px; }
+.nav nav a { text-decoration: none; color: var(--muted); font-size: 14px; }
+.nav nav a:hover { color: var(--ink); }
+
+main { max-width: 920px; margin: 0 auto; padding: 0 24px 64px; }
+
+.hero { padding: 48px 0 40px; }
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--hinge);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 0 0 16px;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  max-width: 14ch;
+}
+.lead {
+  margin: 0 0 28px;
+  max-width: 38em;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+.cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  text-decoration: none;
+  font: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.btn:hover { border-color: #aeb9c8; }
+.btn.primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.btn.primary:hover { background: #2a3649; }
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 8px 0 48px;
+}
+.strip div {
+  background: var(--fog);
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.strip strong { font-size: 14px; }
+.strip span { color: var(--muted); font-size: 13.5px; line-height: 1.4; }
+
+.devices { margin-bottom: 48px; }
+.devices h2, .waitlist h2 {
+  margin: 0 0 14px;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.devices ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.devices li {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13.5px;
+  background: var(--fog);
+}
+
+.waitlist {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--fog);
+}
+.waitlist p { margin: 0 0 18px; color: var(--muted); max-width: 36em; }
+#waitlistForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 480px;
+}
+#waitlistForm input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  background: var(--paper);
+}
+#waitlistForm input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+.form-note { margin: 12px 0 0; font-size: 14px; color: var(--ink); }
+.form-note.error { color: #a01c1c; }
+
+footer {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+}
+footer a { color: var(--muted); }
+
+@media (max-width: 720px) {
+  .strip { grid-template-columns: 1fr; }
+  .hero { padding-top: 28px; }
+}
