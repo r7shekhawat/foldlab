@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FoldLab - test your site on every foldable</title>
+<meta name="description" content="DevTools for foldables. Load any page and watch it unfold on Galaxy Z Fold, Pixel Fold, Surface Duo, iPhone Duo, flips and rollables.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='5' width='11' height='22' rx='3' fill='%2318212f'/%3E%3Crect x='18' y='5' width='11' height='22' rx='3' fill='%2318212f'/%3E%3Crect x='15' y='5' width='2' height='22' fill='%23ff5a1f'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="./" aria-label="FoldLab home">
+    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="11" height="22" rx="3" fill="currentColor"/><rect x="18" y="5" width="11" height="22" rx="3" fill="currentColor"/><rect x="15" y="5" width="2" height="22" fill="var(--hinge)"/></svg>
+    <span>FoldLab</span>
+  </a>
+  <form class="url" id="urlForm" autocomplete="off">
+    <label class="sr" for="url">Page to test</label>
+    <input id="url" type="text" inputmode="url" spellcheck="false" placeholder="localhost:3000, or any URL. Leave empty for the demo page">
+    <button type="submit" class="solid">Load page</button>
+  </form>
+  <div class="views" role="group" aria-label="View">
+    <button type="button" id="viewSingle" aria-pressed="true">One device</button>
+    <button type="button" id="viewGrid" aria-pressed="false">All devices</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="rail" id="rail" aria-label="Devices"></nav>
+
+  <main class="stage">
+    <div class="toolbar" id="toolbar">
+      <div class="modes" id="modes" role="group" aria-label="Device state"></div>
+      <div class="actions">
+        <button type="button" id="foldBtn" class="solid">Unfold</button>
+        <button type="button" id="rotateBtn">Rotate</button>
+        <button type="button" id="linkBtn">Copy link</button>
+      </div>
+    </div>
+
+    <div class="single" id="single">
+      <div class="device-wrap" id="deviceWrap">
+        <div class="device" id="device">
+          <div class="screen" id="screen">
+            <iframe id="frame" title="Page under test" referrerpolicy="no-referrer"></iframe>
+            <div class="crease" id="crease" hidden></div>
+            <div class="hinge" id="hinge" hidden></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" id="grid" hidden></div>
+
+    <section class="readout" id="readout" aria-live="polite"></section>
+
+    <div class="footer-row">
+      <label class="opt"><input type="checkbox" id="optHinge" checked> Show hinge</label>
+      <label class="opt"><input type="checkbox" id="optAnimate" checked> Animate fold</label>
+      <p class="note" id="note">Some sites refuse to be shown in a frame. The Chrome extension tests any page, including localhost, with real hinge and posture emulation.</p>
+    </div>
+  </main>
+</div>
+
+<script src="../core/foldlab-core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

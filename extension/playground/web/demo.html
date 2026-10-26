@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Notes - FoldLab demo</title>
+<script src="foldlab-client.js"></script>
+<style>
+  :root {
+    --ink: #1b2430;
+    --muted: #5d6b7c;
+    --line: #dde3ea;
+    --paper: #ffffff;
+    --wash: #f3f5f8;
+    --pick: #1f5eff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font: 15px/1.5 "Avenir Next", "Segoe UI Variable", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+  }
+  .app { min-height: 100%; display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; }
+  .list { background: var(--wash); border-bottom: 1px solid var(--line); padding: 14px 14px 6px; }
+  .list h2 { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--muted); }
+  .note-row { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 9px 10px; border-radius: 8px; font: inherit; color: inherit; cursor: pointer; }
+  .note-row b { display: block; font-weight: 600; }
+  .note-row span { color: var(--muted); font-size: 13px; }
+  .note-row[aria-current="true"] { background: var(--paper); box-shadow: 0 0 0 1px var(--line); }
+  .note-row:focus-visible, .toggle input:focus-visible, .actions button:focus-visible { outline: 2px solid var(--pick); outline-offset: 2px; }
+  .detail { padding: 20px 20px 28px; }
+  .detail h1 { margin: 0 0 4px; font-size: 24px; line-height: 1.2; }
+  .detail .meta { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+  .detail p { margin: 0 0 12px; max-width: 62ch; }
+  .actions { display: flex; gap: 8px; margin-top: 16px; }
+  .actions button { font: inherit; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); cursor: pointer; }
+  .actions button.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .hinge-gap { display: none; }
+
+  /* fold-aware layout: book fold, hinge runs top to bottom -> list | detail */
+  html[data-fold-segments="2"][data-fold-orientation="vertical"] .app:not(.naive) {
+    height: 100%;
+    grid-template-columns: var(--fold-seg0-w) var(--fold-hinge-w) minmax(0, 1fr);
+    grid-template-rows: 100%;
+  }
+  html[data-fold-segments="2"][data-fold-orientation="vertical"] .app:not(.naive) .list { border-bottom: 0; border-right: 1px solid var(--line); overflow: auto; }
+  html[data-fold-segments="2"][data-fold-orientation="vertical"] .app:not(.naive) .hinge-gap { display: block; }
+  html[data-fold-segments="2"][data-fold-orientation="vertical"] .app:not(.naive) .detail { overflow: auto; }
+
+  /* tabletop / laptop posture, hinge runs left to right -> content on top, controls below */
+  html[data-fold-segments="2"][data-fold-orientation="horizontal"] .app:not(.naive) {
+    height: 100%;
+    grid-template-rows: var(--fold-seg0-h) var(--fold-hinge-h) minmax(0, 1fr);
+    grid-template-areas: "top" "gap" "bottom";
+  }
+  html[data-fold-segments="2"][data-fold-orientation="horizontal"] .app:not(.naive) .detail { grid-area: top; overflow: auto; }
+  html[data-fold-segments="2"][data-fold-orientation="horizontal"] .app:not(.naive) .hinge-gap { grid-area: gap; display: block; }
+  html[data-fold-segments="2"][data-fold-orientation="horizontal"] .app:not(.naive) .list { grid-area: bottom; border-bottom: 0; border-top: 1px solid var(--line); overflow: auto; }
+
+  /* naive layout: ignores the fold completely, so text runs straight through the hinge */
+  .naive .detail { padding-top: 28px; }
+
+  .panel { position: fixed; right: 8px; bottom: 8px; background: rgba(27, 36, 48, .92); color: #fff; font-size: 12px; line-height: 1.45; padding: 8px 10px; border-radius: 10px; max-width: 220px; z-index: 5; }
+  .panel label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  .panel output { display: block; color: #aeb9c7; margin-top: 4px; }
+  .native-probe { display: none; margin-top: 4px; color: #7ee2a8; }
+  @media (horizontal-viewport-segments: 2), (vertical-viewport-segments: 2) {
+    .native-probe { display: block; }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <nav class="list" aria-label="Notes">
+    <h2>Field notes</h2>
+    <button class="note-row" aria-current="true"><b>Hinge clearance</b><span>Keep text 8px off the seam</span></button>
+    <button class="note-row"><b>Tabletop posture</b><span>Video on top, controls below</span></button>
+    <button class="note-row"><b>Cover screen</b><span>Short on width, tall on height</span></button>
+    <button class="note-row"><b>Resize on unfold</b><span>No reload, no lost state</span></button>
+    <button class="note-row"><b>Dual-screen gap</b><span>Hinge can hide 34px of screen</span></button>
+  </nav>
+  <div class="hinge-gap" aria-hidden="true"></div>
+  <main class="detail">
+    <h1>Hinge clearance</h1>
+    <p class="meta">Edited today</p>
+    <p>When a screen folds, the seam splits what the user sees into two regions. A layout that ignores the seam lets sentences run straight across it, and some dual-screen devices hide a strip of pixels there, so characters simply disappear.</p>
+    <p>A fold-aware layout gives each region a job. On a book fold the list sits on one side and the open note on the other. In tabletop posture the content rises to the top half and the controls rest on the bottom half.</p>
+    <div class="actions"><button class="primary">Save note</button><button>Share</button></div>
+  </main>
+</div>
+
+<div class="panel">
+  <label class="toggle"><input type="checkbox" id="naive"> Naive layout (ignore the fold)</label>
+  <output id="status" aria-live="polite">Checking fold state...</output>
+  <span class="native-probe">Native @media segment query matched</span>
+</div>
+
+<script src="demo.js"></script>
+</body>
+</html>

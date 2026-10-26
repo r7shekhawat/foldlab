@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "notes": "All sizes are CSS px. Panel pixel counts come from manufacturer spec sheets; CSS px = panel px / dpr. Entries marked approximate use estimated dpr or hinge values - PRs with measured values are welcome (see CONTRIBUTING in README). Seamless-fold devices (Fold, Flip, Razr, iPhone Duo) only report a hinge when half-folded, mirroring how Android's WindowManager reports FoldingFeature; flat modes carry a cosmetic 'crease' only.",
+  "devices": [
+    {
+      "id": "apple-iphone-duo",
+      "name": "iPhone Duo",
+      "brand": "Apple",
+      "type": "book",
+      "year": 2026,
+      "approximate": true,
+      "note": "Announced Sep 9 2026. Panels: 2034x1398 cover, 2670x1878 inner. CSS px assume 3x; update when Apple publishes logical sizes.",
+      "modes": [
+        { "id": "cover", "label": "Cover screen", "role": "closed", "width": 466, "height": 678, "dpr": 3, "posture": "folded" },
+        { "id": "unfolded", "label": "Unfolded", "role": "open", "width": 890, "height": 626, "dpr": 3, "posture": "continuous", "crease": "vertical" }
+      ]
+    },
+    {
+      "id": "samsung-galaxy-z-fold-7",
+      "name": "Galaxy Z Fold 7",
+      "brand": "Samsung",
+      "type": "book",
+      "year": 2025,
+      "modes": [
+        { "id": "cover", "label": "Cover screen", "role": "closed", "width": 411, "height": 960, "dpr": 2.625, "posture": "folded" },
+        { "id": "unfolded", "label": "Unfolded", "role": "open", "width": 750, "height": 832, "dpr": 2.625, "posture": "continuous", "crease": "vertical" },
+        { "id": "flex", "label": "Flex (laptop / tabletop)", "width": 832, "height": 750, "dpr": 2.625, "posture": "folded", "hinge": { "orientation": "horizontal", "offset": "center", "length": 0 } }
+      ]
+    },
+    {
+      "id": "samsung-galaxy-z-fold-6",
+      "name": "Galaxy Z Fold 6",
+      "brand": "Samsung",
+      "type": "book",
+      "year": 2024,
+      "modes": [
+        { "id": "cover", "label": "Cover screen", "role": "closed", "width": 344, "height": 882, "dpr": 2.625, "posture": "folded" },
+        { "id": "unfolded", "label": "Unfolded", "role": "open", "width": 707, "height": 823, "dpr": 2.625, "posture": "continuous", "crease": "vertical" },
+        { "id": "flex", "label": "Flex (laptop / tabletop)", "width": 823, "height": 707, "dpr": 2.625, "posture": "folded", "hinge": { "orientation": "horizontal", "offset": "center", "length": 0 } }
+      ]
+    },
+    {
+      "id": "samsung-galaxy-z-flip-7",
+      "name": "Galaxy Z Flip 7",
+      "brand": "Samsung",
+      "type": "flip",
+      "year": 2025,
+      "approximate": true,
+      "note": "Cover screen dpr estimated.",
+      "modes": [
+        { "id": "cover", "label": "Cover screen", "role": "closed", "width": 474, "height": 524, "dpr": 2, "posture": "folded" },
+        { "id": "unfolded", "label": "Unfolded", "role": "open", "width": 411, "height": 960, "dpr": 2.625, "posture": "continuous", "crease": "horizontal" },
+        { "id": "flex", "label": "Flex mode (half-folded)", "width": 411, "height": 960, "dpr": 2.625, "posture": "folded", "hinge": { "orientation": "horizontal", "offset": "center", "length": 0 } }
+      ]
+    },
+    {
+      "id": "samsung-galaxy-z-flip-6",
+      "name": "Galaxy Z Flip 6",
+      "brand": "Samsung",
+      "type": "flip",
+      "year": 2024,
+      "approximate": true,
+      "note": "Cover screen dpr estimated.",
+      "modes": [
+        { "id": "cover", "label": "Cover screen", "role": "closed", "width": 360, "height": 374, "dpr": 2, "posture": "folded" },
+        { "id": "unfolded", "label": "Unfolded", "role": "open", "width": 384, "height": 939, "dpr": 2.8125, "posture": "continuous", "crease": "horizontal" },
+        { "id": "flex", "label": "Flex mode (half-folded)", "width": 384, "height": 939, "dpr": 2.8125, "posture": "folded", "hinge": { "orientation": "horizontal", "offset": "center", "length": 0 } }
+      ]
+    },
+    {
+      "id": "google-pixel-10-pro-fold",
+      "name": "Pixel 10 Pro Fold",
+      "brand": "Google",
+      "type": "book",
+      "year": 2025,
+      "modes": [
+        { "id": "cover", "label": "Cover screen", "role": "closed", "width": 411, "height": 901, "dpr": 2.625, "posture": "folded" },
+        { "id": "unfolded", "label": "Unfolded", "role": "open", "width": 791, "height": 820, "dpr": 2.625, "posture": "continuous", "crease": "vertical" },
+        { "id": "tabletop", "label": "Tabletop / laptop", "width": 820, "height": 791, "dpr": 2.625, "posture": "folded", "hinge": { "orientation": "horizontal", "offset": "center", "length": 0 } }
+      ]
+    },
+    {
+      "id": "google-pixel-fold",
+      "name": "Pixel Fold",
+      "brand": "Google",
+      "type": "book",
+      "year": 2023,
+      "modes": [
+        { "id": "cover", "label": "Cover screen", "role": "closed", "width": 411, "height": 797, "dpr": 2.625, "posture": "folded" },
+        { "id": "unfolded", "label": "Unfolded", "role": "open", "width": 701, "height": 841, "dpr": 2.625, "posture": "continuous", "crease": "vertical" },
+        { "id": "tabletop", "label": "Tabletop / laptop", "width": 841, "height": 701, "dpr": 2.625, "posture": "folded", "hinge": { "orientation": "horizontal", "offset": "center", "length": 0 } }
+      ]
+    },
+    {
+      "id": "motorola-razr-50-ultra",
+      "name": "Razr+ 2024 (Razr 50 Ultra)",
+      "brand": "Motorola",
+      "type": "flip",
+      "year": 2024,
+      "approximate": true,
+      "note": "Cover screen is 4in 1272x1080; dpr estimated.",
+      "modes": [
+        { "id": "cover", "label": "Cover screen", "role": "closed", "width": 411, "height": 485, "dpr": 2.625, "posture": "folded" },
+        { "id": "unfolded", "label": "Unfolded", "role": "open", "width": 411, "height": 1006, "dpr": 2.625, "posture": "continuous", "crease": "horizontal" },
+        { "id": "flex", "label": "Flex view (half-folded)", "width": 411, "height": 1006, "dpr": 2.625, "posture": "folded", "hinge": { "orientation": "horizontal", "offset": "center", "length": 0 } }
+      ]
+    },
+    {
+      "id": "microsoft-surface-duo",
+      "name": "Surface Duo",
+      "brand": "Microsoft",
+      "type": "dual-screen",
+      "year": 2020,
+      "modes": [
+        { "id": "single", "label": "Single screen", "role": "closed", "width": 540, "height": 720, "dpr": 2.5, "posture": "continuous" },
+        { "id": "spanned", "label": "Spanned (both screens)", "role": "open", "width": 1114, "height": 720, "dpr": 2.5, "posture": "continuous", "hinge": { "orientation": "vertical", "offset": 540, "length": 34 } }
+      ]
+    },
+    {
+      "id": "microsoft-surface-duo-2",
+      "name": "Surface Duo 2",
+      "brand": "Microsoft",
+      "type": "dual-screen",
+      "year": 2021,
+      "approximate": true,
+      "note": "Hinge gap assumed equal to Duo 1.",
+      "modes": [
+        { "id": "single", "label": "Single screen", "role": "closed", "width": 538, "height": 757, "dpr": 2.5, "posture": "continuous" },
+        { "id": "spanned", "label": "Spanned (both screens)", "role": "open", "width": 1110, "height": 757, "dpr": 2.5, "posture": "continuous", "hinge": { "orientation": "vertical", "offset": 538, "length": 34 } }
+      ]
+    },
+    {
+      "id": "generic-rollable",
+      "name": "Generic Rollable (Rizr-style)",
+      "brand": "Generic",
+      "type": "rollable",
+      "year": 2026,
+      "approximate": true,
+      "note": "Concept geometry: the screen extends vertically (~1.3x). There is no hinge. Use it to test how your layout handles height changes while running.",
+      "modes": [
+        { "id": "retracted", "label": "Retracted", "role": "closed", "width": 412, "height": 720, "dpr": 2.75, "posture": "continuous" },
+        { "id": "mid", "label": "Half extended", "width": 412, "height": 828, "dpr": 2.75, "posture": "continuous" },
+        { "id": "extended", "label": "Fully extended", "role": "open", "width": 412, "height": 936, "dpr": 2.75, "posture": "continuous" }
+      ]
+    }
+  ]
+}

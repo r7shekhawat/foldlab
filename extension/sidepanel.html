@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FoldLab</title>
+<link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+<header>
+  <h1>
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="11" height="22" rx="3" fill="currentColor"/><rect x="18" y="5" width="11" height="22" rx="3" fill="currentColor"/><rect x="15" y="5" width="2" height="22" fill="#ff5a1f"/></svg>
+    FoldLab
+  </h1>
+  <span id="status" class="pill">Not emulating</span>
+</header>
+
+<main>
+  <label for="device">Device</label>
+  <select id="device"></select>
+
+  <div class="chips" id="modes" role="group" aria-label="Device state"></div>
+
+  <div class="row">
+    <button id="fold" class="solid" type="button">Unfold</button>
+    <button id="rotate" type="button">Rotate</button>
+  </div>
+
+  <fieldset>
+    <legend>Emulation</legend>
+    <label class="opt"><input type="checkbox" id="optOverlay" checked> Show hinge overlay on the page</label>
+    <label class="opt"><input type="checkbox" id="optAnimate" checked> Animate fold and unfold</label>
+    <label class="opt"><input type="checkbox" id="optTouch" checked> Touch events</label>
+    <label class="opt"><input type="checkbox" id="optUa" checked> Mobile user agent</label>
+  </fieldset>
+
+  <section id="readout" class="readout" aria-live="polite"></section>
+  <p id="msg" class="msg" role="status"></p>
+
+  <div class="row">
+    <button id="grid" type="button">All devices view</button>
+    <button id="stop" type="button">Stop emulating</button>
+  </div>
+  <button id="move" type="button" hidden>Emulate this tab instead</button>
+
+  <p class="fine">Chrome shows a "FoldLab started debugging this browser" bar while emulation is on. That is expected: FoldLab uses the same protocol as DevTools.</p>
+</main>
+
+<script src="playground/core/foldlab-core.js"></script>
+<script src="sidepanel.js"></script>
+</body>
+</html>

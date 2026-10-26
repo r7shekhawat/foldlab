@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Extension copy of core/ and web/ is up to date
+        run: |
+          npm run sync
+          git diff --exit-code -- extension/ || (echo "Run 'npm run sync' and commit extension/playground" && exit 1)
+      - run: node scripts/zip-extension.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: foldlab-extension
+          path: dist/foldlab-extension.zip

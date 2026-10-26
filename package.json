@@ -1,0 +1,31 @@
+{
+  "name": "foldlab",
+  "version": "0.1.0",
+  "description": "DevTools for foldables: test your website on every folding, flipping and rolling device.",
+  "license": "MIT",
+  "private": false,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "test": "node --test",
+    "sync": "node scripts/sync.js",
+    "build:extension": "node scripts/sync.js && node scripts/zip-extension.js"
+  },
+  "keywords": [
+    "foldable",
+    "devtools",
+    "chrome-extension",
+    "responsive",
+    "device-posture",
+    "viewport-segments",
+    "samsung-fold",
+    "surface-duo",
+    "pixel-fold"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.3"
+  }
+}

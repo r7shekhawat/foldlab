@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "FoldLab - foldable device testing",
+  "version": "0.1.0",
+  "description": "DevTools for foldables. Emulate Galaxy Z Fold/Flip, Pixel Fold, Surface Duo, iPhone Duo and rollables with a real hinge, viewport segments and device posture.",
+  "minimum_chrome_version": "114",
+  "permissions": ["debugger", "sidePanel", "storage", "declarativeNetRequest"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "side_panel": { "default_path": "sidepanel.html" },
+  "action": {
+    "default_title": "Open FoldLab",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}
