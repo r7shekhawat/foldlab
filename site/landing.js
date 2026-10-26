@@ -1,8 +1,7 @@
 (function () {
   'use strict';
-  // Create a free form at https://formspree.io and paste the id (e.g. "xpwkgqab").
-  // Until then, emails are kept in this browser only so you can still demo the UI.
-  var FORMSPREE_ID = '';
+  // FoldLab waitlist form: https://formspree.io/forms/mdeeeywp
+  var FORMSPREE_ID = 'mdeeeywp';
 
   var form = document.getElementById('waitlistForm');
   var note = document.getElementById('formNote');
