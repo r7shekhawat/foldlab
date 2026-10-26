@@ -1,0 +1,7 @@
+name = "foldlab-proxy"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+# Public playground origins allowed to embed proxied pages (also hardcoded in worker).
+FOLDLAB_NOTE = "Frame proxy for https://r7shekhawat.github.io/foldlab/"

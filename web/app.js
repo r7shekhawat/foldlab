@@ -57,6 +57,19 @@
     return 'https://' + v;
   }
 
+  // Hosted frame proxy for GitHub Pages (Cloudflare Worker). Override with
+  // window.FOLDLAB_PROXY = 'https://….workers.dev' before app.js if needed.
+  var REMOTE_PROXY = (typeof window !== 'undefined' && window.FOLDLAB_PROXY) ||
+    'https://foldlab-proxy.r7foldlab.workers.dev';
+
+  function proxyEndpoint() {
+    var host = location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '0.0.0.0') {
+      return location.origin + '/__foldlab_proxy';
+    }
+    return REMOTE_PROXY.replace(/\/$/, '');
+  }
+
   function frameSrc(raw) {
     var src = normalizeUrl(raw);
     // Demo page is same-origin; load it directly.
@@ -68,9 +81,9 @@
         return src;
       }
     } catch (e) { return src; }
-    // Route external pages through the local proxy so X-Frame-Options / CSP
+    // Route external pages through the frame proxy so X-Frame-Options / CSP
     // frame-ancestors cannot blank the device iframe.
-    return '/__foldlab_proxy?url=' + encodeURIComponent(src);
+    return proxyEndpoint() + '?url=' + encodeURIComponent(src);
   }
 
   function showFrameStatus(kind, message) {
@@ -149,9 +162,11 @@
       if (doc && doc.title === 'FoldLab proxy error') {
         var msg = doc.body && doc.body.innerText ? doc.body.innerText.replace(/\s+/g, ' ').trim() : 'Could not load page through the proxy.';
         showFrameStatus('error', msg);
+      } else if (doc && /404|not found/i.test(doc.title || '') && /github/i.test(doc.body && doc.body.innerText || '')) {
+        showFrameStatus('error', 'Frame proxy is not available on this host yet. External URLs need the FoldLab proxy.');
       }
     } catch (e) {
-      // Cross-origin direct embed (e.g. localhost). Load event still means the browser navigated.
+      // Cross-origin proxied or direct embed. Load event still means the browser navigated.
     }
     if (shown) post(els.frame, device(), shown);
   });

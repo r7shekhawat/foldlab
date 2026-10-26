@@ -58,7 +58,7 @@
     <div class="footer-row">
       <label class="opt"><input type="checkbox" id="optHinge" checked> Show hinge</label>
       <label class="opt"><input type="checkbox" id="optAnimate" checked> Animate fold</label>
-      <p class="note" id="note">External URLs load through a local proxy that strips frame-blocking headers. Localhost still needs the Chrome extension if that server forbids framing.</p>
+      <p class="note" id="note">External URLs load through a frame proxy that strips X-Frame-Options / CSP. Localhost targets still need the Chrome extension if that server forbids framing.</p>
     </div>
   </main>
 </div>
