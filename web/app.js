@@ -57,6 +57,36 @@
     return 'https://' + v;
   }
 
+  function frameSrc(raw) {
+    var src = normalizeUrl(raw);
+    // Demo page is same-origin; load it directly.
+    if (src === 'demo.html' || /^\.\.?\//.test(src)) return src;
+    // Localhost targets must stay direct (proxy cannot reach the user's machine).
+    try {
+      var u = new URL(src, location.href);
+      if (u.hostname === 'localhost' || u.hostname === '127.0.0.1' || u.hostname === '::1' || u.hostname === '0.0.0.0') {
+        return src;
+      }
+    } catch (e) { return src; }
+    // Route external pages through the local proxy so X-Frame-Options / CSP
+    // frame-ancestors cannot blank the device iframe.
+    return '/__foldlab_proxy?url=' + encodeURIComponent(src);
+  }
+
+  function showFrameStatus(kind, message) {
+    var box = document.getElementById('frameStatus');
+    if (!box) return;
+    if (!kind) {
+      box.hidden = true;
+      box.textContent = '';
+      box.className = 'frame-status';
+      return;
+    }
+    box.hidden = false;
+    box.className = 'frame-status ' + kind;
+    box.textContent = message;
+  }
+
   function fit(w, h) {
     var aw = els.single.clientWidth - 24;
     var ah = els.single.clientHeight - 24;
@@ -113,7 +143,21 @@
   });
 
   els.frame.addEventListener('load', function () {
+    showFrameStatus(null);
+    try {
+      var doc = els.frame.contentDocument;
+      if (doc && doc.title === 'FoldLab proxy error') {
+        var msg = doc.body && doc.body.innerText ? doc.body.innerText.replace(/\s+/g, ' ').trim() : 'Could not load page through the proxy.';
+        showFrameStatus('error', msg);
+      }
+    } catch (e) {
+      // Cross-origin direct embed (e.g. localhost). Load event still means the browser navigated.
+    }
     if (shown) post(els.frame, device(), shown);
+  });
+
+  els.frame.addEventListener('error', function () {
+    showFrameStatus('error', 'The page failed to load in the device frame.');
   });
 
   /* ---------- rendering ---------- */
@@ -191,12 +235,14 @@
     els.wrap.style.height = (h + BEZEL * 2) * scale + 'px';
   }
 
-  function loadFrame() {
-    var src = normalizeUrl(state.url);
-    if (els.frame.getAttribute('data-src') !== src) {
-      els.frame.setAttribute('data-src', src);
-      els.frame.src = src;
-    }
+  function loadFrame(force) {
+    var target = normalizeUrl(state.url);
+    var src = frameSrc(state.url);
+    if (!force && els.frame.getAttribute('data-src') === src) return;
+    els.frame.setAttribute('data-src', src);
+    els.frame.setAttribute('data-target', target);
+    showFrameStatus('loading', 'Loading ' + target + '…');
+    els.frame.src = src;
   }
 
   function renderReadout(dev, mode) {
@@ -312,7 +358,7 @@
     gridDirty = false;
     els.grid.textContent = '';
     gridFrames = [];
-    var src = normalizeUrl(state.url);
+    var src = frameSrc(state.url);
     devices.forEach(function (dev) {
       els.grid.appendChild(el('h2', null, dev.name));
       var row = el('div', 'g-row');
@@ -378,7 +424,7 @@
       state.url = els.url.value.trim();
       gridDirty = true;
       writeHash();
-      if (state.view === 'grid') renderGrid(); else loadFrame();
+      if (state.view === 'grid') renderGrid(); else loadFrame(true);
     });
     els.foldBtn.addEventListener('click', toggleFold);
     els.rotateBtn.addEventListener('click', function () { go(state.modeId, !state.rotated, true); });

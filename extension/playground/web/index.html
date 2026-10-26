@@ -43,6 +43,7 @@
         <div class="device" id="device">
           <div class="screen" id="screen">
             <iframe id="frame" title="Page under test" referrerpolicy="no-referrer"></iframe>
+            <div class="frame-status" id="frameStatus" hidden></div>
             <div class="crease" id="crease" hidden></div>
             <div class="hinge" id="hinge" hidden></div>
           </div>
@@ -57,7 +58,7 @@
     <div class="footer-row">
       <label class="opt"><input type="checkbox" id="optHinge" checked> Show hinge</label>
       <label class="opt"><input type="checkbox" id="optAnimate" checked> Animate fold</label>
-      <p class="note" id="note">Some sites refuse to be shown in a frame. The Chrome extension tests any page, including localhost, with real hinge and posture emulation.</p>
+      <p class="note" id="note">External URLs load through a local proxy that strips frame-blocking headers. Localhost still needs the Chrome extension if that server forbids framing.</p>
     </div>
   </main>
 </div>
